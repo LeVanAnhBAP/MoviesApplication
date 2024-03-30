@@ -1,0 +1,8 @@
+{
+  "AppTitle": "Movies Application",
+  "Errors": {
+    "UnknownError": "Unknown error",
+    "NetworkError": "Network error",
+    "UnauthorizedError": "The request requires user authentication"
+  }
+}
