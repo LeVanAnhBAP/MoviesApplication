@@ -4,5 +4,9 @@
     "UnknownError": "Unknown error",
     "NetworkError": "Network error",
     "UnauthorizedError": "The request requires user authentication"
+  },
+  "Dashboard": {
+    "Home": "Home",
+    "Account": "Account"
   }
 }

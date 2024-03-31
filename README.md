@@ -38,5 +38,9 @@ flutter run --flavor=production
 
 - Run this script to generate the translation keys
 ```bash
-flutter pub run easy_localization:generate \ -f keys \ -S lib/core/languages/translations \ -O lib/core/languages \ -o translation_keys.g.dart
+flutter pub run easy_localization:generate \
+  -f keys \
+  -S lib/core/languages/translations \
+  -O lib/core/languages \
+  -o translation_keys.g.dart
 ```

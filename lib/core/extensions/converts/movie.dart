@@ -18,8 +18,8 @@ extension MovieResponseConverter on MovieResponse {
         originalTitle: originalTitle ?? '',
         storyline: storyline ?? '',
         actors: actors ?? [],
-        imdbRating: imdbRating ?? '',
-        posterUrl: posterUrl ?? '');
+        imdbRating: imdbRating ?? 0,
+        posterUrl: posterurl ?? '');
     return movie;
   }
 }

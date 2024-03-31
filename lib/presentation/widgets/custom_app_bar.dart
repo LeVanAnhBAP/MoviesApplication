@@ -58,6 +58,9 @@ class _CustomAppBarState extends State<CustomAppBar> {
   bool _isSearching = false;
 
   void _toggleSearch() {
+    if (_isSearching == false) {
+      widget.onSearchValue!('');
+    }
     setState(() {
       _isSearching = !_isSearching;
     });
@@ -98,10 +101,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
       child: SearchField(
         onSearchValue: (value) {
           if (widget.onSearchValue != null) {
-            widget.onSearchValue!;
+            widget.onSearchValue!(value);
           }
         },
-        placeholder: widget.placeholderSearch,
+        placeholder: widget.placeholderSearch ?? 'Search movies...',
       ),
     );
   }

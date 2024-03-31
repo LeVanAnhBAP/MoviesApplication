@@ -12,7 +12,7 @@ class Movie {
   final String originalTitle;
   final String storyline;
   final List<String> actors;
-  final String imdbRating;
+  final double imdbRating;
   final String posterUrl;
 
   Movie({

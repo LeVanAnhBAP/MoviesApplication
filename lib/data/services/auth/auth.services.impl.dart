@@ -8,4 +8,6 @@ class AuthServicesImpl extends AuthServices {
   const AuthServicesImpl._(
     this.key,
   );
+
+  const AuthServicesImpl([String key = 'default']) : this._(key);
 }

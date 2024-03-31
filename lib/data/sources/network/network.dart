@@ -1,5 +1,3 @@
-import 'package:movies_app/core/bases/responses/base_response.dart';
-import 'package:movies_app/data/models/response/movie/movie_response.dart';
 import 'package:movies_app/data/services/api/api.service.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:dio/dio.dart';
@@ -16,5 +14,5 @@ abstract class NetworkDataSource {
   }) = _NetworkDataSource;
 
   @GET(NetworkUrls.getMovies)
-  Future<BaseResponse<List<MovieResponse>>> getMovies();
+  Future<String> getMovies();
 }

@@ -1,12 +1,23 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:movies_app/presentation/pages/dashboard/home/home.dart';
+import 'package:movies_app/presentation/pages/dashboard/dashboard.dart';
+import 'package:movies_app/presentation/pages/dashboard/account/account.dart';
 
 part 'navigation.gr.dart';
 
 @AutoRouterConfig(replaceInRouteName: 'Page,Route')
 class AppRouter extends _$AppRouter {
   @override
-  final List<AutoRoute> routes = [];
+  final List<AutoRoute> routes = [
+    AutoRoute(
+        path: '/dashboard',
+        page: DashboardRoute.page,
+        initial: true,
+        children: [
+          AutoRoute(path: 'home', page: DashboardHomeRoute.page, initial: true),
+          AutoRoute(path: 'account', page: DashboardAccountRoute.page),
+        ]),
+  ];
 
   @override
   RouteType get defaultRouteType => const RouteType.cupertino();

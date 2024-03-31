@@ -59,12 +59,12 @@ class _SearchFieldState extends State<SearchField> {
           fontSize: widget.fontSize,
         ),
         contentPadding: widget.padding,
-        fillColor: (widget.backgroundColor ?? context.colors.background)
-            .withOpacity(widget.backgroundOpacity),
+        fillColor: (widget.backgroundColor ?? Colors.amber),
       ),
       autocorrect: false,
       cursorColor: widget.cursorColor,
-      style: context.typographies.body.copyWith(fontSize: widget.fontSize),
+      style: context.typographies.body
+          .copyWith(fontSize: widget.fontSize, color: Colors.white),
       onChanged: widget.onSearchValue,
     );
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'base_response.freezed.dart';
@@ -11,6 +13,6 @@ class BaseResponse<T> with _$BaseResponse<T> {
   }) = BaseResponseData;
 
   factory BaseResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$BaseResponseFromJson(json, fromJsonT);
+          String jsonString, T Function(Object?) fromJsonT) =>
+      _$BaseResponseFromJson(jsonDecode(jsonString), fromJsonT);
 }

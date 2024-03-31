@@ -1,4 +1,5 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
+
 import 'package:movies_app/core/exceptions/exception.dart';
 import 'package:movies_app/core/exceptions/unknown_exception.dart';
 import 'package:movies_app/data/models/response/movie/movie_response.dart';
@@ -17,7 +18,10 @@ class MovieRepositoryImpl implements MovieRepository {
   Future<List<MovieResponse>> getMovies() async {
     try {
       final res = await _networkDataSource.getMovies();
-      return res.data;
+      final data = jsonDecode(res) as List<dynamic>;
+      final List<MovieResponse> movies =
+          data.map((json) => MovieResponse.fromJson(json)).toList();
+      return movies;
     } on BaseException {
       rethrow;
     } catch (e) {
