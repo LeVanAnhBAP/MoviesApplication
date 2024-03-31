@@ -8,5 +8,9 @@
   "Dashboard": {
     "Home": "Home",
     "Account": "Account"
+  },
+  "DetailMovie": {
+    "Title": "{}",
+    "Account": "Account"
   }
 }

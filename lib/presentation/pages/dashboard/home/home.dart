@@ -6,6 +6,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/data/sources/models/movie.dart';
 import 'package:movies_app/di/injector.dart';
+import 'package:movies_app/presentation/navigation/navigation.dart';
 import 'package:movies_app/presentation/widgets/custom_app_bar.dart';
 import 'package:movies_app/presentation/widgets/divider_line.dart';
 import 'package:movies_app/presentation/widgets/item_movie.dart';
@@ -54,12 +55,6 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
     );
   }
 
-  Widget _buildRefresh(BuildContext context) {
-    return CupertinoSliverRefreshControl(
-      onRefresh: _onRefresh,
-    );
-  }
-
   Widget _buildBody(BuildContext context) {
     return MoviesSelector(
       builder: (movies) {
@@ -71,9 +66,15 @@ class _DashboardHomePageState extends State<DashboardHomePage> {
             Movie movie = movies[index];
             return Column(
               children: [
-                Container(),
                 const DividerLine(width: double.infinity),
-                ItemMovie(movie: movie),
+                InkWell(
+                  onTap: () {
+                    context.router.push(
+                      DetailMovieRoute(movie: movie),
+                    );
+                  },
+                  child: ItemMovie(movie: movie),
+                ),
               ],
             );
           },

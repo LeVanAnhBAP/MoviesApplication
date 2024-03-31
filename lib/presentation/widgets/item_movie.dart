@@ -69,7 +69,7 @@ class ItemMovie extends StatelessWidget {
         },
         width: widthImage,
         height: heightImage,
-        fit: BoxFit.cover,
+        fit: BoxFit.contain,
         errorBuilder:
             (BuildContext context, Object error, StackTrace? stackTrace) {
           return Container(

@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:movies_app/presentation/pages/dashboard/home/home.dart';
+import 'package:movies_app/presentation/pages/dashboard/home/widget/detail_movie.dart';
 import 'package:movies_app/presentation/pages/dashboard/dashboard.dart';
 import 'package:movies_app/presentation/pages/dashboard/account/account.dart';
+import 'package:movies_app/data/sources/models/movie.dart';
 
 part 'navigation.gr.dart';
 
@@ -17,6 +19,7 @@ class AppRouter extends _$AppRouter {
           AutoRoute(path: 'home', page: DashboardHomeRoute.page, initial: true),
           AutoRoute(path: 'account', page: DashboardAccountRoute.page),
         ]),
+    AutoRoute(path: '/detail-movie', page: DetailMovieRoute.page),
   ];
 
   @override
