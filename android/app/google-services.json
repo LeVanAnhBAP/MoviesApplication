@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "911220006104",
+    "project_id": "movies-application-c9bb0",
+    "storage_bucket": "movies-application-c9bb0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:911220006104:android:243ad2d41a0d1dc4568bad",
+        "android_client_info": {
+          "package_name": "com.uqsystem.uqapp.movies_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9LxNXs_oGiOXEf4D2xs2jA1zFyZjJD-o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -23,5 +24,24 @@ class AccountStatusListener extends BlocListener<AccountBloc, AccountState> {
           listenWhen: (previousState, currentState) =>
               previousState.status != currentState.status &&
               statuses.contains(currentState.status),
+        );
+}
+
+class GetIsSignInSelector
+    extends BlocSelector<AccountBloc, AccountState, bool> {
+  GetIsSignInSelector({
+    required Widget Function(bool isSign) builder,
+  }) : super(
+          selector: (state) => state.isSignIn,
+          builder: (_, isSign) => builder(isSign),
+        );
+}
+
+class GetUserSelector extends BlocSelector<AccountBloc, AccountState, User?> {
+  GetUserSelector({
+    required Widget Function(User? user) builder,
+  }) : super(
+          selector: (state) => state.user,
+          builder: (_, user) => builder(user),
         );
 }

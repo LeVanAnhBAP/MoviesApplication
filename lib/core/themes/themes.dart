@@ -11,7 +11,7 @@ const AppTheme darkTheme = AppTheme(
   brightness: Brightness.dark,
   colors: AppColors(
     primarySwatch: Colors.deepPurple,
-    backgroundAppbar: Colors.amber,
+    backgroundAppbar: Colors.black87,
     primary: Color(0xFF2ECC71),
     secondary: Color(0xFFFFAB49),
     accent: Color(0xFFFFFFFF),

@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,11 +6,13 @@ import 'package:movies_app/core/extensions/theme.dart';
 import 'package:movies_app/data/sources/models/movie.dart';
 import 'package:movies_app/di/injector.dart';
 import 'package:movies_app/presentation/navigation/navigation.dart';
+import 'package:movies_app/presentation/pages/dashboard/account/account_selector.dart';
 import 'package:movies_app/presentation/widgets/custom_button.dart';
 import 'package:movies_app/presentation/widgets/divider_line.dart';
 import 'package:movies_app/presentation/widgets/item_movie.dart';
 
 import 'account_bloc.dart';
+import 'account_event.dart';
 
 @RoutePage()
 class DashboardAccountPage extends StatefulWidget {
@@ -21,9 +24,14 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
   final AccountBloc _bloc = provider.get<AccountBloc>();
 
   @override
+  void initState() {
+    _bloc.add(const IsSignInCheck());
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _bloc.close();
-
     super.dispose();
   }
 
@@ -42,7 +50,9 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
   }
 
   Widget _buildBody(BuildContext context) {
-    return _buildAccount();
+    return GetIsSignInSelector(builder: (isSignIn) {
+      return isSignIn == true ? _buildAccount() : _buildNotAccount(context);
+    });
   }
 
   Widget _buildNotAccount(BuildContext context) {
@@ -89,20 +99,22 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
   }
 
   Widget _buildAccount() {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        _buildInfoAccount(context),
-        const SizedBox(
-          height: 8,
-        ),
-        _buildWatchlist(context),
-        const SizedBox(height: 16),
-      ],
-    );
+    return GetUserSelector(builder: (useResult) {
+      return ListView(
+        shrinkWrap: true,
+        children: [
+          _buildInfoAccount(context, user: useResult),
+          const SizedBox(
+            height: 8,
+          ),
+          _buildWatchlist(context),
+          const SizedBox(height: 16),
+        ],
+      );
+    });
   }
 
-  Widget _buildInfoAccount(BuildContext context) {
+  Widget _buildInfoAccount(BuildContext context, {User? user}) {
     final infoAccountHeight = MediaQuery.of(context).size.height / 4;
     return Container(
       height: infoAccountHeight,
@@ -116,7 +128,7 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
           ),
           Expanded(
             flex: 3,
-            child: _buildNameAndEmail(context),
+            child: _buildNameAndEmail(context, user: user),
           ),
           const SizedBox(width: 8),
           Expanded(
@@ -129,20 +141,20 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
     );
   }
 
-  Widget _buildNameAndEmail(BuildContext context) {
+  Widget _buildNameAndEmail(BuildContext context, {User? user}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
-          'Anh',
+          user?.displayName ?? '',
           style: context.typographies.title2Bold,
         ),
         const SizedBox(
           height: 8,
         ),
         Text(
-          'anhxtanh141199121218@gmail.com',
+          user?.email ?? '',
           style: context.typographies.caption1,
         ),
       ],

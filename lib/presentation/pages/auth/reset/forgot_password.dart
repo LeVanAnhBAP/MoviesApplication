@@ -1,6 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies_app/core/extensions/theme.dart';
+import 'package:movies_app/di/injector.dart';
+import 'package:movies_app/presentation/pages/auth/auth_bloc.dart';
+import 'package:movies_app/presentation/pages/auth/auth_event.dart';
+import 'package:movies_app/presentation/pages/auth/auth_selector.dart';
+import 'package:movies_app/presentation/pages/auth/auth_state.dart';
 import 'package:movies_app/presentation/widgets/custom_app_bar.dart';
 import 'package:movies_app/presentation/widgets/custom_button.dart';
 import 'package:movies_app/presentation/widgets/custom_text_field.dart';
@@ -14,17 +20,53 @@ class ForgotPasswordPage extends StatefulWidget {
 }
 
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
+  final AuthBloc _bloc = provider.get<AuthBloc>();
+
+  TextEditingController? _emailController;
+
+  @override
+  void initState() {
+    _emailController = TextEditingController(text: null);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(
-        appBarTitle: 'Forgot password',
-        titleAlign: TextAlign.start,
-        onBackPress: () {
-          context.router.pop();
-        },
+    return BlocProvider.value(
+      value: _bloc,
+      child: MultiBlocListener(
+        listeners: [
+          AuthStatusListener(
+            statuses: const [
+              AuthStatus.loading,
+              AuthStatus.resetPasswordSuccess
+            ],
+            listener: (BuildContext context, AuthState state) {
+              var status = state.status;
+              if (status == AuthStatus.loading) {
+              } else if (status == AuthStatus.resetPasswordSuccess) {
+                context.router.pop();
+              } else {}
+            },
+          )
+        ],
+        child: Scaffold(
+          appBar: CustomAppBar(
+            appBarTitle: 'Forgot password',
+            titleAlign: TextAlign.start,
+            onBackPress: () {
+              context.router.pop();
+            },
+          ),
+          body: _buildBody(context),
+        ),
       ),
-      body: _buildBody(context),
     );
   }
 
@@ -59,6 +101,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   Widget _buildEmail() {
     return TextFieldInputText(
+      controller: _emailController,
       fillColor: const Color(0xFFF7F8FA),
       placeHolder: 'Your email',
       obscureText: false,
@@ -76,7 +119,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         size: ButtonSize.large,
         'Continue',
         padding: const EdgeInsets.all(16.0),
-        onPressed: () {},
+        onPressed: () {
+          if (_emailController != null) {
+            _bloc.add(ResetPasswordStarted(_emailController!.text.toString()));
+          }
+        },
         width: double.infinity,
       ),
     );

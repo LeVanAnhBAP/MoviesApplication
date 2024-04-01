@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_config/flutter_config.dart';
@@ -10,13 +11,17 @@ import 'package:movies_app/presentation/navigation/navigation.dart';
 import 'env.dart';
 import 'core/languages/languages.dart';
 import 'di/injector.dart';
+import 'firebase_options.dart';
 import 'presentation/blocs/global_bloc_providers.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   await FlutterConfig.loadEnvVariables();
-
   await injectDependencies();
+
 
   Bloc.observer = const AppBlocObserver();
 
