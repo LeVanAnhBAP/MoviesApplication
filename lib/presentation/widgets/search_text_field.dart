@@ -26,7 +26,7 @@ class SearchField extends StatefulWidget {
     this.backgroundOpacity = 0.2,
     this.placeholderOpacity = 0.5,
     this.isPrefixIcon = false,
-    this.cursorColor = Colors.white,
+    this.cursorColor = Colors.black,
   });
 
   @override
@@ -54,8 +54,7 @@ class _SearchFieldState extends State<SearchField> {
           borderRadius: widget.borderRadius,
         ),
         hintStyle: context.typographies.body.copyWith(
-          color: (widget.placeholderColor ?? context.colors.background)
-              .withOpacity(widget.placeholderOpacity),
+          color: (widget.placeholderColor ?? Colors.black54),
           fontSize: widget.fontSize,
         ),
         contentPadding: widget.padding,
@@ -63,8 +62,7 @@ class _SearchFieldState extends State<SearchField> {
       ),
       autocorrect: false,
       cursorColor: widget.cursorColor,
-      style: context.typographies.body
-          .copyWith(fontSize: widget.fontSize, color: Colors.white),
+      style: context.typographies.caption1.copyWith(fontSize: widget.fontSize),
       onChanged: widget.onSearchValue,
     );
   }

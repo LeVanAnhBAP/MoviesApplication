@@ -19,6 +19,7 @@ class AppButton extends StatelessWidget {
   final BorderRadius borderRadius;
   final TextAlign textAlign;
   final EdgeInsets padding;
+  final Color? background;
 
   // Constructor
   const AppButton(
@@ -33,6 +34,7 @@ class AppButton extends StatelessWidget {
     this.borderRadius = const BorderRadius.all(Radius.circular(8)),
     this.width,
     required this.onPressed,
+    this.background,
   });
 
   // Factory method to create an AppButton with corresponding configured properties for primary button
@@ -147,6 +149,9 @@ class AppButton extends StatelessWidget {
 
   // Get the background color of the button based on type and disabled state
   Color _getBackgroundColor(BuildContext context) {
+    if (background != null) {
+      return background!;
+    }
     if (isDisable == true) {
       if (type != ButtonType.text) {
         return Colors.black38;

@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,6 @@ import 'package:movies_app/presentation/widgets/item_movie.dart';
 import 'home_bloc.dart';
 import 'home_event.dart';
 import 'home_selector.dart';
-import 'home_state.dart';
 
 @RoutePage()
 class DashboardHomePage extends StatefulWidget {
@@ -26,12 +24,6 @@ class DashboardHomePage extends StatefulWidget {
 
 class _DashboardHomePageState extends State<DashboardHomePage> {
   final HomeBloc _bloc = provider.get<HomeBloc>();
-
-  Future _onRefresh() async {
-    _bloc.add(const HomeRefreshData());
-    return _bloc.stream
-        .firstWhere((state) => state.status != HomeStatus.refreshing);
-  }
 
   @override
   void initState() {

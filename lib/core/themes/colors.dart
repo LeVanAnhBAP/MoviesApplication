@@ -17,6 +17,7 @@ class AppColors {
   final Color border;
   final Color hint;
   final Color divider;
+  final Color backgroundAppbar;
 
   const AppColors({
     required this.primarySwatch,
@@ -35,6 +36,7 @@ class AppColors {
     required this.border,
     required this.hint,
     required this.divider,
+    required this.backgroundAppbar,
   });
 
   AppColors lerp(covariant dynamic other, double t) {
@@ -58,6 +60,8 @@ class AppColors {
       border: Color.lerp(border, other.border, t)!,
       hint: Color.lerp(hint, other.hint, t)!,
       divider: Color.lerp(divider, other.divider, t)!,
+      backgroundAppbar:
+          Color.lerp(backgroundAppbar, other.backgroundAppbar, t)!,
     );
   }
 }

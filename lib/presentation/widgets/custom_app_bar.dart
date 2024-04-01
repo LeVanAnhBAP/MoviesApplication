@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:movies_app/assets.gen.dart';
+import 'package:movies_app/core/extensions/theme.dart';
 import 'package:movies_app/presentation/widgets/search_text_field.dart';
 
 class IconOptions {
@@ -28,7 +29,9 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
   final double searchHeight;
   final Function()? onSettingsPress;
   final Function()? onBackPress;
+  final Function()? onLeadingPress;
   final Function(String)? onSearchValue;
+  final String? leadingPath;
 
   const CustomAppBar({
     Key? key,
@@ -45,6 +48,8 @@ class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
     this.widthIconBack = 40,
     this.placeholderSearch,
     this.appBarHeight = kToolbarHeight,
+    this.leadingPath,
+    this.onLeadingPress,
   }) : super(key: key);
 
   @override
@@ -69,6 +74,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      backgroundColor: context.colors.backgroundAppbar,
       leading: _buildLeading(),
       titleSpacing: widget.titleSpace,
       leadingWidth: widget.widthIconBack,
@@ -124,10 +130,11 @@ class _CustomAppBarState extends State<CustomAppBar> {
         ),
       if (!_isSearching && widget.onSettingsPress != null)
         _buildItemAction(
-          padding: const EdgeInsets.only(right: 26),
-          child: SvgPicture.asset(
-            Assets.icons.svg.icCloseSeach.path,
-            fit: BoxFit.contain,
+          padding: const EdgeInsets.only(right: 16),
+          child: const Icon(
+            Icons.settings,
+            color: Colors.white,
+            size: 24,
           ),
           onTap: widget.onSettingsPress,
         ),
@@ -152,17 +159,34 @@ class _CustomAppBarState extends State<CustomAppBar> {
   }
 
   Widget? _buildLeading() {
-    return widget.onBackPress != null
-        ? Container(
-            padding: const EdgeInsets.only(left: 16, right: 0),
-            child: InkWell(
-              onTap: () => widget.onBackPress!(),
-              child: SvgPicture.asset(
-                Assets.icons.svg.icBack.path,
-                fit: BoxFit.contain,
-              ),
+    if (widget.leadingPath != null) {
+      return Container(
+        padding: const EdgeInsets.only(left: 16, right: 0),
+        child: InkWell(
+          onTap: () => widget.onLeadingPress!(),
+          child: SvgPicture.asset(
+            widget.leadingPath!,
+            fit: BoxFit.contain,
+            colorFilter: const ColorFilter.mode(
+              Colors.white,
+              BlendMode.srcIn,
             ),
-          )
-        : null;
+          ),
+        ),
+      );
+    } else if (widget.onBackPress != null) {
+      return Container(
+        padding: const EdgeInsets.only(left: 16, right: 0),
+        child: InkWell(
+          onTap: () => widget.onBackPress!(),
+          child: SvgPicture.asset(
+            Assets.icons.svg.icBack.path,
+            fit: BoxFit.contain,
+          ),
+        ),
+      );
+    } else {
+      return null;
+    }
   }
 }
