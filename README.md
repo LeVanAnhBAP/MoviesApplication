@@ -44,3 +44,21 @@ flutter pub run easy_localization:generate \
   -O lib/core/languages \
   -o translation_keys.g.dart
 ```
+
+### Screenshot
+
+![Deserialise the json and represent it in a list - Title, poster, rating.](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/list_movie.png)
+
+![Movie details page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/detail_movie.png)
+
+![User and Watchlist page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/user_and_watchlist.png)
+
+![SignIn page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/signIn.png)
+
+![Signup page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/signup.png)
+
+![Forgot password page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/forgot_password.png)
+
+![Video demo](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/5308893970930.mp4)
+
+
