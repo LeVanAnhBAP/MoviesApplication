@@ -160,7 +160,12 @@ class _DetailMoviePageState extends State<DetailMoviePage> {
           return Container(
             height: posterHeight,
             width: double.infinity,
-            color: context.colors.primary,
+            color: Colors.white,
+            child: const Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 48,
+            ),
           );
         },
       ),

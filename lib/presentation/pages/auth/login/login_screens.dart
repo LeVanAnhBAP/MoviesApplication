@@ -55,6 +55,8 @@ class _LoginPageState extends State<LoginPage> {
               AuthStatus.loading,
               AuthStatus.signInSuccess,
               AuthStatus.success,
+              AuthStatus.signupSuccess,
+              AuthStatus.resetPasswordSuccess,
             ],
             listener: (BuildContext context, AuthState state) {
               var status = state.status;

@@ -238,14 +238,14 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
           ),
           Text(
             'Watchlist',
-            style: context.typographies.title3Bold,
+            style: context.typographies.title3Bold.copyWith(color: Colors.white),
           ),
           const SizedBox(
             width: 4,
           ),
           Text(
             length ?? '0',
-            style: context.typographies.caption1,
+            style: context.typographies.caption1.copyWith(color: Colors.white),
           )
         ],
       ),

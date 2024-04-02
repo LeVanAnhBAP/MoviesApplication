@@ -74,11 +74,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ),
       );
       final user = await signUpUseCase(event.params);
-      if (user != null) {
-        WatchlistParams params =
-            WatchlistParams(idMovies: ['-1'], idUser: user.uid);
-        await createNewWatchlistUseCase(params);
-      }
       emit(
         state.copyWith(
           status: AuthStatus.signupSuccess,
