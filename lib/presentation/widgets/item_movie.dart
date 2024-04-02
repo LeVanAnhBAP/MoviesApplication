@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:movies_app/core/extensions/theme.dart';
 import 'package:movies_app/data/sources/models/movie.dart';
@@ -18,6 +19,8 @@ class ItemMovie extends StatelessWidget {
   final double heightImage;
   final double radiusImage;
 
+  final User? user;
+
   const ItemMovie({
     super.key,
     this.backgroundColor = Colors.white,
@@ -29,7 +32,8 @@ class ItemMovie extends StatelessWidget {
     this.styleContent,
     this.radiusImage = 10,
     this.widthImage = 80,
-    this.heightImage = 80,
+    this.heightImage = 160,
+    this.user,
   });
 
   @override
@@ -69,13 +73,18 @@ class ItemMovie extends StatelessWidget {
         },
         width: widthImage,
         height: heightImage,
-        fit: BoxFit.contain,
+        fit: BoxFit.cover,
         errorBuilder:
             (BuildContext context, Object error, StackTrace? stackTrace) {
           return Container(
             height: heightImage,
             width: widthImage,
-            color: context.colors.primary,
+            color: Colors.white,
+            child: const Icon(
+              Icons.error,
+              color: Colors.red,
+              size: 24,
+            ),
           );
         },
       ),
@@ -108,7 +117,7 @@ class ItemMovie extends StatelessWidget {
           child: Text(
             movie.title,
             style: styleTitle ??
-                context.typographies.title3Bold.copyWith(color: Colors.black),
+                context.typographies.title3Bold.copyWith(color: Colors.white),
             maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
           ),
@@ -134,7 +143,7 @@ class ItemMovie extends StatelessWidget {
           child: Text(
             movie.imdbRating.toString(),
             style: styleContent ??
-                context.typographies.caption1.copyWith(color: Colors.black),
+                context.typographies.caption1.copyWith(color: Colors.white),
             maxLines: maxLines,
             overflow: TextOverflow.ellipsis,
           ),

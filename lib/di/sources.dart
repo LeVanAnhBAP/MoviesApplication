@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:movies_app/data/services/api/api.service.dart';
 import 'package:movies_app/data/sources/network/network.dart';
 import 'package:movies_app/di/injector.dart';
@@ -12,4 +13,7 @@ FutureOr<void> registerDataSources() async {
   );
 
   provider.registerSingleton<FirebaseAuth>(FirebaseAuth.instance);
+
+  provider
+      .registerSingleton<DatabaseReference>(FirebaseDatabase.instance.ref());
 }

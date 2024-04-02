@@ -26,7 +26,7 @@ class SearchField extends StatefulWidget {
     this.backgroundOpacity = 0.2,
     this.placeholderOpacity = 0.5,
     this.isPrefixIcon = false,
-    this.cursorColor = Colors.black,
+    this.cursorColor = Colors.white,
   });
 
   @override
@@ -54,7 +54,7 @@ class _SearchFieldState extends State<SearchField> {
           borderRadius: widget.borderRadius,
         ),
         hintStyle: context.typographies.body.copyWith(
-          color: (widget.placeholderColor ?? Colors.black54),
+          color: (widget.placeholderColor ?? Colors.white),
           fontSize: widget.fontSize,
         ),
         contentPadding: widget.padding,

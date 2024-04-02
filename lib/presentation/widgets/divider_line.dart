@@ -8,7 +8,7 @@ class DividerLine extends StatelessWidget {
 
   const DividerLine({
     super.key,
-    this.sizeLine = 1,
+    this.sizeLine = 0.5,
     this.margin = const EdgeInsets.symmetric(vertical: 8),
     required this.width,
     this.color = Colors.grey,

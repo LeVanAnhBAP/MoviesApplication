@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies_app/data/sources/models/movie.dart';
 
 import 'account_bloc.dart';
 import 'account_state.dart';
@@ -44,4 +45,13 @@ class GetUserSelector extends BlocSelector<AccountBloc, AccountState, User?> {
           selector: (state) => state.user,
           builder: (_, user) => builder(user),
         );
+}
+
+class MoviesWatchlistSelector extends BlocSelector<AccountBloc, AccountState, List<Movie>> {
+  MoviesWatchlistSelector({
+    required Widget Function(List<Movie> movies) builder,
+  }) : super(
+    selector: (state) => state.movies,
+    builder: (_, status) => builder(status),
+  );
 }

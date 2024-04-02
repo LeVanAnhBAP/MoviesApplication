@@ -12,6 +12,10 @@ FutureOr<void> registerStates() async {
   provider.registerSingleton<HomeBloc>(
     HomeBloc(
       provider.get<GetMoviesUseCase>(),
+      provider.get<AddMovieToWatchlistUseCase>(),
+      provider.get<RemoveMovieToWatchlistUseCase>(),
+      provider.get<GetWatchlistUseCase>(),
+      provider.get<GetUserUseCase>(),
     ),
   );
 
@@ -19,6 +23,9 @@ FutureOr<void> registerStates() async {
     AccountBloc(
       provider.get<GetIsSignedInUseCase>(),
       provider.get<GetUserUseCase>(),
+      provider.get<GetWatchlistUseCase>(),
+      provider.get<GetMoviesUseCase>(),
+      provider.get<SignOutUseCase>(),
     ),
   );
 
@@ -28,6 +35,7 @@ FutureOr<void> registerStates() async {
       provider.get<ResetPasswordUseCase>(),
       provider.get<SignUpUseCase>(),
       provider.get<SignOutUseCase>(),
+      provider.get<CreateNewWatchlistUseCase>(),
     ),
   );
 }

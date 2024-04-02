@@ -11,4 +11,9 @@ class AccountEvent with _$AccountEvent {
   const factory AccountEvent.isSignIn() = IsSignInCheck;
 
   const factory AccountEvent.getUser() = GetUserStarted;
+
+  const factory AccountEvent.getWatchlist(String idUser) = GetWatchlistStarted;
+
+  const factory AccountEvent.signOut() = SignOutStarted;
+
 }

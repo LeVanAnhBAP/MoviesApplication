@@ -7,6 +7,7 @@ import 'package:movies_app/presentation/pages/dashboard/account/account.dart';
 import 'package:movies_app/presentation/pages/auth/login/login_screens.dart';
 import 'package:movies_app/presentation/pages/auth/register/sign_up.dart';
 import 'package:movies_app/data/sources/models/movie.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 part 'navigation.gr.dart';
 
@@ -14,18 +15,43 @@ part 'navigation.gr.dart';
 class AppRouter extends _$AppRouter {
   @override
   final List<AutoRoute> routes = [
-    AutoRoute(
+    CustomRoute(
         path: '/dashboard',
         page: DashboardRoute.page,
         initial: true,
+        transitionsBuilder: TransitionsBuilders.noTransition,
         children: [
-          AutoRoute(path: 'home', page: DashboardHomeRoute.page, initial: true),
-          AutoRoute(path: 'account', page: DashboardAccountRoute.page),
+          CustomRoute(
+            path: 'home',
+            page: DashboardHomeRoute.page,
+            initial: true,
+            maintainState: false,
+            transitionsBuilder: TransitionsBuilders.noTransition,
+          ),
+          CustomRoute(
+            path: 'account',
+            page: DashboardAccountRoute.page,
+            maintainState: false,
+            transitionsBuilder: TransitionsBuilders.noTransition,
+          ),
         ]),
-    AutoRoute(path: '/detail-movie', page: DetailMovieRoute.page),
-    AutoRoute(path: '/sign-in', page: LoginRoute.page),
-    AutoRoute(path: '/sign-up', page: SignupRoute.page),
-    AutoRoute(path: '/forgot-password', page: ForgotPasswordRoute.page),
+    CustomRoute(
+      path: '/detail-movie',
+      page: DetailMovieRoute.page,
+      maintainState: false,
+      transitionsBuilder: TransitionsBuilders.noTransition,
+    ),
+    CustomRoute(path: '/sign-in', page: LoginRoute.page),
+    CustomRoute(
+      path: '/sign-up',
+      page: SignupRoute.page,
+      transitionsBuilder: TransitionsBuilders.noTransition,
+    ),
+    CustomRoute(
+      path: '/forgot-password',
+      page: ForgotPasswordRoute.page,
+      transitionsBuilder: TransitionsBuilders.noTransition,
+    ),
   ];
 
   @override

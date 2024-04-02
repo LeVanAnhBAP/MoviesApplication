@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:movies_app/core/extensions/theme.dart';
 import 'package:movies_app/data/sources/models/movie.dart';
 import 'package:movies_app/di/injector.dart';
 import 'package:movies_app/presentation/navigation/navigation.dart';
 import 'package:movies_app/presentation/pages/dashboard/account/account_selector.dart';
+import 'package:movies_app/presentation/pages/dashboard/account/account_state.dart';
 import 'package:movies_app/presentation/widgets/custom_button.dart';
 import 'package:movies_app/presentation/widgets/divider_line.dart';
 import 'package:movies_app/presentation/widgets/item_movie.dart';
@@ -30,21 +32,37 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
   }
 
   @override
-  void dispose() {
-    _bloc.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BlocProvider.value(
       value: _bloc,
-      child: Scaffold(
-        appBar: AppBar(
-          toolbarHeight: 0,
-          backgroundColor: context.colors.backgroundAppbar,
+      child: MultiBlocListener(
+        listeners: [
+          AccountStatusListener(
+            statuses: const [
+              AccountStatus.loading,
+              AccountStatus.success,
+              AccountStatus.initial,
+              AccountStatus.failure,
+            ],
+            listener: (BuildContext context, AccountState state) {
+              var status = state.status;
+              if (status == AccountStatus.loading) {
+                EasyLoading.show();
+              } else if (status == AccountStatus.success) {
+                EasyLoading.dismiss();
+              } else {
+                EasyLoading.dismiss();
+              }
+            },
+          )
+        ],
+        child: Scaffold(
+          appBar: AppBar(
+            toolbarHeight: 0,
+            backgroundColor: context.colors.backgroundAppbar,
+          ),
+          body: _buildBody(context),
         ),
-        body: _buildBody(context),
       ),
     );
   }
@@ -74,7 +92,7 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
       padding: const EdgeInsets.all(8),
       child: Text(
         'Get and keep Watchlist',
-        style: context.typographies.bodyBold,
+        style: context.typographies.bodyBold.copyWith(color: Colors.white),
         textAlign: TextAlign.center,
       ),
     );
@@ -90,8 +108,11 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
         size: ButtonSize.large,
         'Sign in / Sign up',
         padding: const EdgeInsets.all(16.0),
-        onPressed: () {
-          context.router.push(const LoginRoute());
+        onPressed: () async {
+          var result = await context.router.push(const LoginRoute());
+          if (result == true) {
+            _bloc.add(const IsSignInCheck());
+          }
         },
         width: double.infinity,
       ),
@@ -133,7 +154,7 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
           const SizedBox(width: 8),
           Expanded(
             flex: 1,
-            child: _buildAvatar(context),
+            child: _buildAvatar(context, user: user),
           ),
           const SizedBox(width: 16),
         ],
@@ -146,39 +167,59 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-          user?.displayName ?? '',
-          style: context.typographies.title2Bold,
-        ),
+        if (user?.displayName != null && user!.displayName!.isNotEmpty)
+          Text(
+            user.displayName ?? '',
+            style: context.typographies.title2Bold,
+          ),
         const SizedBox(
           height: 8,
         ),
         Text(
           user?.email ?? '',
-          style: context.typographies.caption1,
+          style: context.typographies.caption1.copyWith(color: Colors.white),
         ),
+        const SizedBox(
+          height: 8,
+        ),
+        AppButton(
+            textAlign: TextAlign.center,
+            borderRadius: const BorderRadius.all(Radius.circular(4)),
+            style: ButtonDisplayOptions.fix,
+            size: ButtonSize.small,
+            'Sign out', onPressed: () async {
+          _bloc.add(const SignOutStarted());
+        }, width: 80, background: Colors.grey),
       ],
     );
   }
 
-  Widget _buildAvatar(BuildContext context) {
+  Widget _buildAvatar(BuildContext context, {User? user}) {
     return CircleAvatar(
       radius: 15,
       backgroundColor: Colors.white,
       child: Text(
-        'A',
+        user != null && user.displayName != null && user.displayName!.isNotEmpty
+            ? user.displayName?.substring(0, 1).toUpperCase() ?? ''
+            : '',
         style: context.typographies.title1SemiBold,
       ),
     );
   }
 
   Widget _buildWatchlist(BuildContext context) {
-    return Column(
-      children: [_buildTitleWatchlist(context), _buildListWatchlist(context)],
-    );
+    return MoviesWatchlistSelector(builder: (List<Movie> movies) {
+      var length = movies.length.toString();
+      return Column(
+        children: [
+          _buildTitleWatchlist(context, length: length),
+          _buildListWatchlist(context, movies: movies)
+        ],
+      );
+    });
   }
 
-  Widget _buildTitleWatchlist(BuildContext context) {
+  Widget _buildTitleWatchlist(BuildContext context, {String? length}) {
     final height = context.typographies.title3Bold.fontSize! + 3.0;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
@@ -203,7 +244,7 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
             width: 4,
           ),
           Text(
-            '0',
+            length ?? '0',
             style: context.typographies.caption1,
           )
         ],
@@ -211,9 +252,8 @@ class _DashboardAccountPageState extends State<DashboardAccountPage> {
     );
   }
 
-  Widget _buildListWatchlist(BuildContext context) {
-    List<Movie> movies = Movie.generateMovies();
-
+  Widget _buildListWatchlist(BuildContext context,
+      {required List<Movie> movies}) {
     return ListView.builder(
       shrinkWrap: true,
       padding: const EdgeInsets.all(8),

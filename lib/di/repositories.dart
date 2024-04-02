@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:movies_app/data/repositories/movie/movie.repository.impl.dart';
 import 'package:movies_app/data/repositories/user/user.repository.dart';
 import 'package:movies_app/data/repositories/user/user.repository.impl.dart';
@@ -19,6 +20,7 @@ FutureOr<void> registerRepositories() {
   provider.registerSingleton<UserRepository>(
     UserRepositoryImpl(
       provider.get<FirebaseAuth>(),
+      provider.get<DatabaseReference>(),
     ),
   );
 }

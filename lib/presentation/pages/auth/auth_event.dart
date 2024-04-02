@@ -13,4 +13,5 @@ class AuthEvent with _$AuthEvent {
   const factory AuthEvent.signUp(UserRequestParams params) = SignupStarted;
   const factory AuthEvent.resetPassword(String email) = ResetPasswordStarted;
   const factory AuthEvent.signOut() = SignOutStarted;
+  const factory AuthEvent.createWatchlist(WatchlistParams params) = CreateWatchlistStarted;
 }

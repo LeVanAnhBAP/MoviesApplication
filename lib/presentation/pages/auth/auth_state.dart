@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:movies_app/core/exceptions/exception.dart';
 
@@ -18,6 +19,7 @@ enum AuthStatus {
 class AuthState with _$AuthState {
   const factory AuthState({
     @Default(AuthStatus.initial) AuthStatus status,
+    User? user,
     BaseException? error,
   }) = _AuthState;
 }

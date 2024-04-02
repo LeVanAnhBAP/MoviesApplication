@@ -49,4 +49,28 @@ FutureOr<void> registerUseCases() {
       provider.get<UserRepository>(),
     ),
   );
+
+  provider.registerSingleton<CreateNewWatchlistUseCase>(
+    CreateNewWatchlistUseCase(
+      provider.get<UserRepository>(),
+    ),
+  );
+
+  provider.registerSingleton<AddMovieToWatchlistUseCase>(
+    AddMovieToWatchlistUseCase(
+      provider.get<UserRepository>(),
+    ),
+  );
+
+  provider.registerSingleton<RemoveMovieToWatchlistUseCase>(
+    RemoveMovieToWatchlistUseCase(
+      provider.get<UserRepository>(),
+    ),
+  );
+
+  provider.registerSingleton<GetWatchlistUseCase>(
+    GetWatchlistUseCase(
+      provider.get<UserRepository>(),
+    ),
+  );
 }
