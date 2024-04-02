@@ -47,18 +47,25 @@ flutter pub run easy_localization:generate \
 
 ### Screenshot
 
-![Deserialise the json and represent it in a list - Title, poster, rating.](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/list_movie.png)
+#### Deserialise the json and represent it in a list - Title, poster, rating.
+<img alt="Deserialise the json and represent it in a list - Title, poster, rating." src="https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/list_movie.png" width="300"/>
 
-![Movie details page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/detail_movie.png)
+#### Movie details page
+<img alt="Movie details page" src="https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/detail_movie.png" width="300"/>
 
-![User and Watchlist page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/user_and_watchlist.png)
+#### User and Watchlist page
+<img alt="User and Watchlist page" height="" src="https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/user_and_watchlist.png" width="300"/>
 
-![SignIn page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/signIn.png)
+#### SignIn page
+<img alt="SignIn page" height="" src="https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/signIn.png" width="300"/>
 
-![Signup page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/signup.png)
+#### Signup page
+<img alt="Signup page" height="" src="https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/signup.png" width="300"/>
 
-![Forgot password page](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/forgot_password.png)
+#### Forgot password page
+<img alt="Forgot password page" height="" src="https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/forgot_password.png" width="300"/>
 
-![Video demo](https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/5308893970930.mp4)
+#### Video demo
+<img alt="Video demo" src="https://github.com/LeVanAnhBAP/MoviesApplication/blob/main/image_capture/5308893970930.mp4" width="300"/>
 
 
